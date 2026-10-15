@@ -1,0 +1,31 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Our Weekly Meal Plan</title><style>
+body{font-family:system-ui,-apple-system,sans-serif;margin:0;background:#fdf8f3;color:#2d2a26;line-height:1.5}
+header{background:#7a2e1d;color:#fff;padding:1.2rem 1rem;text-align:center}header h1{margin:0;font-size:1.5rem}header p{margin:.3rem 0 0;opacity:.9;font-size:.9rem}
+nav{position:sticky;top:0;background:#fff;display:flex;overflow-x:auto;gap:.3rem;padding:.5rem;box-shadow:0 1px 4px #0002;z-index:9}
+nav a{white-space:nowrap;padding:.35rem .7rem;border-radius:99px;background:#f3e6dc;color:#7a2e1d;text-decoration:none;font-size:.85rem}
+main{max-width:760px;margin:auto;padding:1rem}section{background:#fff;border-radius:12px;padding:1rem;margin-bottom:1rem;box-shadow:0 1px 3px #0001}
+h2{margin-top:0;color:#7a2e1d}.day{display:flex;gap:.7rem;align-items:center;padding:.5rem 0;border-bottom:1px solid #eee}.day b{width:2.6rem}
+.tag{display:inline-block;padding:.1rem .5rem;border-radius:6px;color:#fff;font-size:.85rem}.small{font-size:.85rem;color:#666}
+label{display:flex;gap:.6rem;padding:.35rem 0;align-items:flex-start}input[type=checkbox]{width:1.2rem;height:1.2rem;flex:none}
+label:has(input:checked) span{text-decoration:line-through;color:#999}button{background:#7a2e1d;color:#fff;border:0;border-radius:8px;padding:.5rem .9rem}
+</style></head><body>
+<header><h1>🍽️ Our Weekly Meal Plan</h1><p id="week"></p><p id="notes" class="small" style="color:#fff"></p></header>
+<nav><a href="#menu">Menu</a><a href="#recipes">Recipes</a><a href="#grocery">Grocery</a><a href="#schedule">Cook Schedule</a><a href="#storage">Storage</a></nav>
+<main><section id="menu"><h2>Menu &amp; Reheating Guide</h2><div id="days"></div></section>
+<section id="recipes"><h2>Recipes</h2><div id="rec"></div></section>
+<section id="grocery"><h2>Grocery List</h2><div id="groc"></div><button onclick="clearList()">Clear checkmarks</button></section>
+<section id="schedule"><h2>Weekend Cook Schedule</h2><div id="sched"></div></section>
+<section id="storage"><h2>Storage Notes</h2><ul id="stor"></ul></section></main>
+<script src="data.js"></script><script>
+const P=MEAL_PLAN,D=Object.fromEntries(P.dishes.map(d=>[d.id,d])),$=id=>document.getElementById(id),e=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'})[c]);
+$('week').textContent=P.week;$('notes').textContent=P.notes;
+$('days').innerHTML=P.days.map(x=>{const d=D[x.dish];return `<div class="day"><b>${x.day}</b><div><span class="tag" style="background:${d.color}">${e(d.name)}</span><div class="small">From ${e(x.from)} · ${e(P.reheat[x.dish])}</div></div></div>`}).join('');
+$('rec').innerHTML=P.dishes.map(d=>`<details><summary><b>${e(d.name)}</b> — ${d.portions} portions</summary><h4>Ingredients</h4><ul>${d.ingredients.map(i=>`<li>${e(i)}</li>`).join('')}</ul><h4>Steps</h4><ol>${d.steps.map(i=>`<li>${e(i)}</li>`).join('')}</ol></details>`).join('<hr>');
+const KEY='mealplan:'+P.week,saved=JSON.parse(localStorage.getItem(KEY)||'{}');
+$('groc').innerHTML=Object.entries(P.grocery).map(([s,items])=>`<h3>${e(s)}</h3>`+items.map((it,i)=>{const k=s+'|'+i;return `<label><input type="checkbox" data-k="${e(k)}" ${saved[k]?'checked':''}><span>${e(it)}</span></label>`}).join('')).join('');
+document.querySelectorAll('#groc input').forEach(c=>c.onchange=()=>{saved[c.dataset.k]=c.checked;localStorage.setItem(KEY,JSON.stringify(saved))});
+function clearList(){localStorage.removeItem(KEY);document.querySelectorAll('#groc input').forEach(c=>c.checked=false);for(const k in saved)delete saved[k]}
+$('sched').innerHTML=Object.entries(P.schedule).map(([h,s])=>`<h3>${e(h)}</h3><ol>${s.map(x=>`<li>${e(x)}</li>`).join('')}</ol>`).join('');
+$('stor').innerHTML=P.storage.map(x=>`<li>${e(x)}</li>`).join('');
+</script></body></html>
