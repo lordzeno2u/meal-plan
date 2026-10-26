@@ -8,18 +8,22 @@ window.MEAL_PLAN = {
   notes: "2 people · 14 dinners · gluten-free · no fish · built on King Soopers + Sprouts sales that END TUE OCT 27 — shop Mon Oct 26 or Tue Oct 27",
   deals: [
     { store: "King Soopers", item: "Pork Shoulder Roast", price: "$2.49/lb with card", regular: null, dates: "Oct 21–27, 2026", url: KS_AD },
-    { store: "King Soopers", item: "93% Lean Ground Beef, 3 lb tray", price: "$6.99/lb ($20.97 tray) with card", regular: "1 lb tray $7.99 (same ad)", dates: "Oct 21–27, 2026", url: KS_AD },
+    { store: "King Soopers", item: "93% Lean Ground Beef, 3 lb tray", price: "$6.99/lb ($20.97 tray) with card", regular: "$7.99/lb as 1 lb tray (same ad) — saves $3.00 on 3 lb", dates: "Oct 21–27, 2026", url: KS_AD },
     { store: "King Soopers", item: "Jennie-O 93% Lean Ground Turkey 16 oz", price: "$3.99 with digital coupon", regular: null, dates: "Oct 21–27, 2026", url: KS_AD },
     { store: "King Soopers", item: "Johnsonville Dinner or Ground Sausage 16–19 oz", price: "$3.99 with card", regular: null, dates: "Oct 21–27, 2026", url: KS_AD },
-    { store: "King Soopers", item: "Rao's Pasta Sauce 15–24 oz", price: "$5.99 with digital coupon", regular: null, dates: "Oct 21–27, 2026", url: KS_AD },
+    { store: "King Soopers", item: "Rao's Pasta Sauce 15–24 oz", price: "$5.99 with digital coupon", regular: "$8.29 regular for 24 oz at Whole Foods Capitol Hill (cross-store compare) — saves $2.30/jar", dates: "Oct 21–27, 2026", url: KS_AD },
     { store: "King Soopers", item: "Acorn, Butternut or Spaghetti Squash", price: "$1.49/lb with card", regular: null, dates: "Oct 21–27, 2026", url: KS_AD },
     { store: "King Soopers", item: "Private Selection Mini Sweet Peppers 1 lb", price: "2 for $7 with card", regular: null, dates: "Oct 21–27, 2026", url: KS_AD },
     { store: "King Soopers", item: "Kroger Cheese 6–8 oz (select)", price: "$1.49 with digital coupon", regular: null, dates: "Oct 21–27, 2026", url: KS_AD },
     { store: "King Soopers", item: "Kroger Cage Free Eggs 12 ct", price: "$1.49 with card", regular: null, dates: "Oct 21–27, 2026", url: KS_AD },
     { store: "King Soopers", item: "Simple Truth Organic Spices", price: "Buy 1 Get 1 Free with card", regular: null, dates: "Oct 21–27, 2026", url: KS_AD },
-    { store: "Sprouts", item: "Organic Large Hass Avocados", price: "2 for $4", regular: null, dates: "Oct 21–27, 2026", url: SP_AD }
+    { store: "Whole Foods (Capitol Hill, Denver)", item: "Organic winter squashes (alt. to KS squash if you want organic)", price: "$1.66/lb sale, $1.49/lb Prime", regular: "$1.99–$2.79/lb", dates: "Oct 21–27, 2026", url: "https://www.wholefoodsmarket.com/sales-flyer?store-id=10746" },
+    { store: "Whole Foods (Capitol Hill, Denver)", item: "No-antibiotics boneless pork butt shoulder roast (organic-leaning alt. to KS pork)", price: "11% off; 20% off with Prime", regular: "$6.49/lb (≈$5.19/lb with Prime)", dates: "Oct 21–27, 2026", url: "https://www.wholefoodsmarket.com/sales-flyer?store-id=10746" },
+    { store: "Natural Grocers", item: "Free-range brown eggs 1 doz (Always Affordable, limit 2)", price: "$2.99", regular: null, dates: "Nov flyer, valid Oct 30–Nov 28, 2026", url: "https://naturalgrocers.cld.bz/Health-Hotline-Magazine-November-2026" },
+    { store: "Costco", item: "Swanson Chicken Broth (GF) 32 oz × 6", price: "$9.99 after $2.50 off", regular: "$12.49 (implied)", dates: "Oct 19–Nov 15, 2026", url: "https://flipp.com (Costco CP Grocery flyer)" },
+    { store: "Sprouts", item: "Organic Large Hass Avocados", price: "2 for $4", regular: "$2.99 each regular at Whole Foods Capitol Hill (cross-store compare) — saves $0.99 each", dates: "Oct 21–27, 2026", url: SP_AD }
   ],
-  dealGaps: "Couldn't get usable item prices for this window from: Whole Foods (only national highlights, mostly fish/bacon, % off without Denver base prices), Natural Grocers (flyer is image-only, no item prices), Aldi (10/28 ad text lists only non-food Finds; grocery ad image-only), Costco (Oct 19–Nov 15 book has no fresh protein/produce we'd use). Next week's ads (Oct 28–Nov 3) weren't published in text yet.",
+  dealGaps: "Checked Oct 25 (Denver 80238): Whole Foods Capitol Hill flyer (worked, has regular prices, ends Oct 27). Natural Grocers November Health Hotline (worked, valid Oct 30–Nov 28, but almost all packaged goods/supplements, no fresh meat or produce deals). Costco Oct 19–Nov 15 book (no fresh protein/produce). Aldi: no Denver grocery ad in text (Flyva shows Chicago prices only). Wed Oct 28 King Soopers/Sprouts/Aldi ads are NOT visible yet on any source, so there are no protein/produce deals confirmed for a Sat Oct 31/Sun Nov 1 cook — that is why this week stays a Mon/Tue shop-and-cook.",
   dishes: [
     { id: "carnitas", name: "Spicy Chipotle Pork Carnitas Bowls", portions: 6, color: "#b03a2e",
       ingredients: ["4 lb pork shoulder roast (KS sale), cut into 2-inch chunks", "1 large yellow onion, quartered", "8 cloves garlic", "2–3 chipotles in adobo + 2 tbsp adobo (check GF label)", "1 tbsp cumin, 1 tbsp chili powder, 2 tsp oregano, 2 tsp salt", "Juice of 2 oranges + 2 limes", "2 lb mini sweet peppers (KS sale), sliced", "2 cans (15 oz) organic black beans", "2 cups dry rice (≈6 cups cooked)", "Cilantro, pickled jalapeños, salsa", "Avocados (Sprouts sale) — slice fresh on the day"],
@@ -49,10 +53,10 @@ window.MEAL_PLAN = {
   grocery: {
     "King Soopers (sale items)": [
       { item: "Pork shoulder roast, ~4 lb @ $2.49/lb", price: 9.96, sale: true },
-      { item: "93% lean ground beef, 3 lb tray", price: 20.97, sale: true },
+      { item: "93% lean ground beef, 3 lb tray", price: 20.97, sale: true, regular: 23.97, regSrc: "KS 1-lb tray $7.99/lb" },
       { item: "Jennie-O 93% ground turkey 16 oz (clip digital coupon)", price: 3.99, sale: true },
       { item: "Johnsonville ground sausage 16 oz", price: 3.99, sale: true },
-      { item: "Rao's marinara ×2 (clip digital coupon)", price: 11.98, sale: true },
+      { item: "Rao's marinara ×2 (clip digital coupon)", price: 11.98, sale: true, regular: 16.58, regSrc: "WF Denver regular $8.29" },
       { item: "Spaghetti squash ×2, ~6 lb @ $1.49/lb", price: 8.94, sale: true },
       { item: "Mini sweet peppers 1 lb ×2 (2/$7)", price: 7.00, sale: true },
       { item: "Kroger cheese ×2 (shredded mozzarella + Parmesan; clip coupon)", price: 2.98, sale: true },
@@ -60,9 +64,9 @@ window.MEAL_PLAN = {
       { item: "Simple Truth Organic cumin + chili powder (BOGO)", price: null, sale: true }
     ],
     "Sprouts (sale items)": [
-      { item: "Organic large Hass avocados ×4 (2/$4)", price: 8.00, sale: true }
+      { item: "Organic large Hass avocados ×4 (2/$4)", price: 8.00, sale: true, regular: 11.96, regSrc: "WF Denver regular $2.99 ea" }
     ],
-    "Staples — regular price, not verified (buy wherever)": [
+    "Staples — no public Denver price found (GroshMe/Flyva/Less4Food only show sale items or need sign-in)": [
       { item: "Rice, 4 cups dry (or use pantry)", price: null },
       { item: "Organic black beans ×2 cans", price: null },
       { item: "Chipotles in adobo (GF)", price: null },
@@ -76,7 +80,7 @@ window.MEAL_PLAN = {
   },
   totals: {
     note: "Totals include ONLY verified sale prices. Staples are unpriced because I couldn't verify Denver shelf prices — they'll add to the real total.",
-    savings: "Regular prices weren't printed for these items, so I can't calculate savings vs. regular. The only comparisons the ad shows: 93% beef 3-lb tray $6.99/lb vs. 1-lb tray $7.99; BOGO spices save 1 jar's price.",
+    savings: "Documented savings: $11.56 on the 3 items with a published regular/compare price (beef $3.00 same-store; Rao's $4.60 and avocados $3.96 vs. Whole Foods Denver regular prices — cross-store). King Soopers and Sprouts ads don't print regular prices, and none of the deal sites (GroshMe, Flyva, Less4Food etc.) exposed them publicly, so savings on the other sale items can't be stated.",
     usualSpend: "PLACEHOLDER — usual weekly grocery spend: TBD from Christian's receipts (not known yet)."
   },
   schedule: {
