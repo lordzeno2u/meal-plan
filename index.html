@@ -11,10 +11,11 @@ label{display:flex;gap:.6rem;padding:.35rem 0;align-items:flex-start}input[type=
 label:has(input:checked) span{text-decoration:line-through;color:#999}button{background:#7a2e1d;color:#fff;border:0;border-radius:8px;padding:.5rem .9rem}
 </style></head><body>
 <header><h1>🍽️ Our Weekly Meal Plan</h1><p id="week"></p><p id="notes" class="small" style="color:#fff"></p></header>
-<nav><a href="#menu">Menu</a><a href="#recipes">Recipes</a><a href="#grocery">Grocery</a><a href="#schedule">Cook Schedule</a><a href="#storage">Storage</a></nav>
-<main><section id="menu"><h2>Menu &amp; Reheating Guide</h2><div id="days"></div></section>
+<nav><a href="#deals">Deals</a><a href="#menu">Menu</a><a href="#recipes">Recipes</a><a href="#grocery">Grocery</a><a href="#schedule">Cook Schedule</a><a href="#storage">Storage</a></nav>
+<main><section id="deals"><h2>This Week's Deals</h2><div id="dl"></div><p class="small" id="gaps"></p></section>
+<section id="menu"><h2>Menu &amp; Reheating Guide</h2><div id="days"></div></section>
 <section id="recipes"><h2>Recipes</h2><div id="rec"></div></section>
-<section id="grocery"><h2>Grocery List</h2><div id="groc"></div><button onclick="clearList()">Clear checkmarks</button></section>
+<section id="grocery"><h2>Grocery List</h2><div id="groc"></div><div id="tot"></div><button onclick="clearList()">Clear checkmarks</button></section>
 <section id="schedule"><h2>Weekend Cook Schedule</h2><div id="sched"></div></section>
 <section id="storage"><h2>Storage Notes</h2><ul id="stor"></ul></section></main>
 <script src="data.js"></script><script>
@@ -23,9 +24,11 @@ $('week').textContent=P.week;$('notes').textContent=P.notes;
 $('days').innerHTML=P.days.map(x=>{const d=D[x.dish];return `<div class="day"><b>${x.day}</b><div><span class="tag" style="background:${d.color}">${e(d.name)}</span><div class="small">From ${e(x.from)} · ${e(P.reheat[x.dish])}</div></div></div>`}).join('');
 $('rec').innerHTML=P.dishes.map(d=>`<details><summary><b>${e(d.name)}</b> — ${d.portions} portions</summary><h4>Ingredients</h4><ul>${d.ingredients.map(i=>`<li>${e(i)}</li>`).join('')}</ul><h4>Steps</h4><ol>${d.steps.map(i=>`<li>${e(i)}</li>`).join('')}</ol></details>`).join('<hr>');
 const KEY='mealplan:'+P.week,saved=JSON.parse(localStorage.getItem(KEY)||'{}');
-$('groc').innerHTML=Object.entries(P.grocery).map(([s,items])=>`<h3>${e(s)}</h3>`+items.map((it,i)=>{const k=s+'|'+i;return `<label><input type="checkbox" data-k="${e(k)}" ${saved[k]?'checked':''}><span>${e(it)}</span></label>`}).join('')).join('');
+$('groc').innerHTML=Object.entries(P.grocery).map(([s,items])=>`<h3>${e(s)}</h3>`+items.map((it,i)=>{const o=typeof it==='string'?{item:it,price:null}:it,k=s+'|'+i;return `<label><input type="checkbox" data-k="${e(k)}" ${saved[k]?'checked':''}><span>${e(o.item)} — <b>${o.price!=null?'$'+o.price.toFixed(2):'price not verified'}</b>${o.sale?' <span class="tag" style="background:#1e8449">SALE</span>':''}</span></label>`}).join('')+(()=>{const t=items.reduce((a,o)=>a+(o.price||0),0);return t?`<p><b>Store subtotal (verified): $${t.toFixed(2)}</b></p>`:''})()).join('');
 document.querySelectorAll('#groc input').forEach(c=>c.onchange=()=>{saved[c.dataset.k]=c.checked;localStorage.setItem(KEY,JSON.stringify(saved))});
 function clearList(){localStorage.removeItem(KEY);document.querySelectorAll('#groc input').forEach(c=>c.checked=false);for(const k in saved)delete saved[k]}
+if(P.deals){$('dl').innerHTML=P.deals.map(d=>`<div class="day"><div><b>${e(d.store)}</b> · ${e(d.item)}<div class="small">${e(d.price)}${d.regular?' (reg/compare: '+e(d.regular)+')':''} · ${e(d.dates)} · <a href="${e(d.url)}" target="_blank">ad</a></div></div></div>`).join('');$('gaps').textContent=P.dealGaps||''}
+if(P.totals){let all=0;Object.values(P.grocery).forEach(l=>l.forEach(o=>all+=(o&&o.price)||0));$('tot').innerHTML=`<p><b>Overall verified total: $${all.toFixed(2)}</b></p><p class="small">${e(P.totals.note)}</p><p class="small">${e(P.totals.savings)}</p><p class="small"><b>${e(P.totals.usualSpend)}</b></p>`}
 $('sched').innerHTML=Object.entries(P.schedule).map(([h,s])=>`<h3>${e(h)}</h3><ol>${s.map(x=>`<li>${e(x)}</li>`).join('')}</ol>`).join('');
 $('stor').innerHTML=P.storage.map(x=>`<li>${e(x)}</li>`).join('');
 </script></body></html>
