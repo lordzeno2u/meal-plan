@@ -11,13 +11,13 @@ label{display:flex;gap:.6rem;padding:.35rem 0;align-items:flex-start}input[type=
 label:has(input:checked) span{text-decoration:line-through;color:#999}button{background:#7a2e1d;color:#fff;border:0;border-radius:8px;padding:.5rem .9rem}
 </style></head><body>
 <header><h1>🍽️ Our Weekly Meal Plan</h1><p id="week"></p><p id="notes" class="small" style="color:#fff"></p></header>
-<nav><a href="#deals">Deals</a><a href="#menu">Menu</a><a href="#recipes">Recipes</a><a href="#grocery">Grocery</a><a href="#schedule">Cook Schedule</a><a href="#storage">Storage</a></nav>
+<nav><a href="#deals">Deals</a><a href="#menu">Menu</a><a href="#recipes">Recipes</a><a href="#grocery">Grocery</a><a href="#schedule">Cook Schedule</a><a href="#storage">Storage</a><a href="#savings">Savings model</a></nav>
 <main><section id="deals"><h2>This Week's Deals</h2><div id="dl"></div><p class="small" id="gaps"></p></section>
 <section id="menu"><h2>Menu &amp; Reheating Guide</h2><div id="days"></div></section>
 <section id="recipes"><h2>Recipes</h2><div id="rec"></div></section>
 <section id="grocery"><h2>Grocery List</h2><div id="groc"></div><div id="tot"></div><button onclick="clearList()">Clear checkmarks</button></section>
 <section id="schedule"><h2>Weekend Cook Schedule</h2><div id="sched"></div></section>
-<section id="storage"><h2>Storage Notes</h2><ul id="stor"></ul></section></main>
+<section id="storage"><h2>Storage Notes</h2><ul id="stor"></ul></section><section id="savings"><h2>Savings model</h2><p id="smshare"></p><ul id="smev"></ul><h3>Rules (ranked)</h3><ol id="smrules"></ol><h3>Stock-up targets</h3><ul id="smt"></ul><h3>Sources</h3><ul id="sms"></ul></section></main>
 <script src="data.js"></script><script>
 const P=MEAL_PLAN,D=Object.fromEntries(P.dishes.map(d=>[d.id,d])),$=id=>document.getElementById(id),e=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'})[c]);
 $('week').textContent=P.week;$('notes').textContent=P.notes;
@@ -31,4 +31,5 @@ if(P.deals){$('dl').innerHTML=P.deals.map(d=>`<div class="day"><div><b>${e(d.sto
 if(P.totals){let all=0;Object.values(P.grocery).forEach(l=>l.forEach(o=>all+=(o&&o.price)||0));$('tot').innerHTML=`<p><b>Overall verified total: $${all.toFixed(2)}</b></p><p class="small">${e(P.totals.note)}</p><p class="small">${e(P.totals.savings)}</p><p class="small"><b>${e(P.totals.usualSpend)}</b></p>`}
 $('sched').innerHTML=Object.entries(P.schedule).map(([h,s])=>`<h3>${e(h)}</h3><ol>${s.map(x=>`<li>${e(x)}</li>`).join('')}</ol>`).join('');
 $('stor').innerHTML=P.storage.map(x=>`<li>${e(x)}</li>`).join('');
+const S=P.savingsModel;if(S){$('smshare').textContent=S.share;$('smev').innerHTML=S.evidence.map(x=>`<li>${e(x)}</li>`).join('');$('smrules').innerHTML=S.rules.map(x=>`<li>${e(x)}</li>`).join('');$('smt').innerHTML=S.targets.map(x=>`<li>${e(x)}</li>`).join('');$('sms').innerHTML=S.sources.map(x=>`<li><a href="${e(x)}">${e(x)}</a></li>`).join('');}
 </script></body></html>
